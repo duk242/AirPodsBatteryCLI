@@ -8,7 +8,7 @@ MACADDR='1A-2B-3C-4D-5E-6F'
 
 
 # See if we're connected to them
-CONNECTED=`system_profiler SPBluetoothDataType | awk "/$MACADDR/ {for(i=1; i<=6; i++) {getline; print}}" | grep "Connected: Yes" | sed 's/.*Connected: Yes/1/'`
+CONNECTED=`system_profiler SPBluetoothDataType | awk "/$MACADDR/i {for(i=1; i<=6; i++) {getline; print}}" | grep "Connected: Yes" | sed 's/.*Connected: Yes/1/'`
 if [ $CONNECTED ]; then
 	BTDATA=`defaults read /Library/Preferences/com.apple.Bluetooth | awk "/\"$MACADDR\".=\s*\{[^\}]*\}/i {for(i=1; i<=6; i++) {getline; print}}"`
 
