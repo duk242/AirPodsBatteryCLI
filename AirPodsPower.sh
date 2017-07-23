@@ -19,12 +19,12 @@ if [[ "${CONNECTED}" ]]; then
   RIGHTBATT=$(grep "BatteryPercentRight" <<< "${BTDATA}"|sed 's/.*BatteryPercentRight = //'|sed 's/;//')
 
   OUTPUT="🎧"
-  [[ ! -z "${COMBINEDBATT}" ]] && output="${OUTPUT} ${COMBINEDBATT}%"
-  [[ ! -z "${HEADSETBATT}" ]] && output="${OUTPUT} ${HEADSETBATT}%"
-  [[ ! -z "${SINGLEBATT}" ]] && output="${OUTPUT} ${SINGLEBATT}%"
-  [[ ! -z "${LEFTBATT}" ]] && output="${OUTPUT} L: ${LEFTBATT}%"
-  [[ ! -z "${RIGHTBATT}" ]] && output="${OUTPUT} R: ${RIGHTBATT}%"
-  [[ ! -z "${CASEBATT}" ]] && output="${OUTPUT} C: ${CASEBATT}%"
+  [[ ! -z "${COMBINEDBATT}" ]] && OUTPUT="${OUTPUT} ${COMBINEDBATT}%"
+  [[ ! -z "${HEADSETBATT}" ]] && OUTPUT="${OUTPUT} ${HEADSETBATT}%"
+  [[ ! -z "${SINGLEBATT}" ]] && OUTPUT="${OUTPUT} ${SINGLEBATT}%"
+  [[ ! -z "${LEFTBATT}" ]] && OUTPUT="${OUTPUT} L: ${LEFTBATT}%"
+  [[ ! -z "${RIGHTBATT}" ]] && OUTPUT="${OUTPUT} R: ${RIGHTBATT}%"
+  [[ ! -z "${CASEBATT}" ]] && OUTPUT="${OUTPUT} C: ${CASEBATT}%"
 
   echo "${OUTPUT}"
 else
