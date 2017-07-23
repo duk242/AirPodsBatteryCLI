@@ -1,5 +1,5 @@
 #!/bin/bash
-# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 1
+# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 1.2
 # Contributors: ankushg, spetykowski
 # Check http://blog.duklabs.com/airpods-power-in-touchbar/ for more info.
 
@@ -13,10 +13,10 @@ CONNECTED=`system_profiler SPBluetoothDataType | awk "/$MACADDR/i {for(i=1; i<=6
 if [ $CONNECTED ]; then
 	BTDATA=`defaults read /Library/Preferences/com.apple.Bluetooth | awk "/\"$MACADDR\".=\s*\{[^\}]*\}/i {for(i=1; i<=6; i++) {getline; print}}"`
 	
-  COMBINEDBATT=`echo "$BTDATA" | grep BatteryPercentCombined | sed 's/.*BatteryPercentCombined = //' | sed 's/;//'` 
+    COMBINEDBATT=`echo "$BTDATA" | grep BatteryPercentCombined | sed 's/.*BatteryPercentCombined = //' | sed 's/;//'` 
 	HEADSETBATT=`echo "$BTDATA" | grep HeadsetBattery | sed 's/.*HeadsetBattery = //' | sed 's/;//'` 
 	SINGLEBATT=`echo "$BTDATA" | grep BatteryPercentSingle | sed 's/.*BatteryPercentSingle = //' | sed 's/;//'` 
-  CASEBATT=`echo "$BTDATA" | grep BatteryPercentCase | sed 's/.*BatteryPercentCase = //' | sed 's/;//'` 
+    CASEBATT=`echo "$BTDATA" | grep BatteryPercentCase | sed 's/.*BatteryPercentCase = //' | sed 's/;//'` 
 	LEFTBATT=`echo "$BTDATA" | grep BatteryPercentLeft | sed 's/.*BatteryPercentLeft = //' | sed 's/;//'` 
 	RIGHTBATT=`echo "$BTDATA" | grep BatteryPercentRight | sed 's/.*BatteryPercentRight = //' | sed 's/;//'` 
 
