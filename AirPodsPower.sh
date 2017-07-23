@@ -13,22 +13,22 @@ CONNECTED=$(system_profiler SPBluetoothDataType | awk "/$MACADDR/i {for(i=1; i<=
 if [ "$CONNECTED" ]; then
 	BTDATA=$(defaults read /Library/Preferences/com.apple.Bluetooth | awk "/\"$MACADDR\".=\\s*\\{[^\\}]*\\}/i {for(i=1; i<=6; i++) {getline; print}}")
 	
-    COMBINEDBATT=$(echo "$BTDATA" | grep BatteryPercentCombined | sed 's/.*BatteryPercentCombined = //' | sed 's/;//') 
-	HEADSETBATT=$(echo "$BTDATA" | grep HeadsetBattery | sed 's/.*HeadsetBattery = //' | sed 's/;//') 
-	SINGLEBATT=$(echo "$BTDATA" | grep BatteryPercentSingle | sed 's/.*BatteryPercentSingle = //' | sed 's/;//') 
-    CASEBATT=$(echo "$BTDATA" | grep BatteryPercentCase | sed 's/.*BatteryPercentCase = //' | sed 's/;//') 
-	LEFTBATT=$(echo "$BTDATA" | grep BatteryPercentLeft | sed 's/.*BatteryPercentLeft = //' | sed 's/;//') 
-	RIGHTBATT=$(echo "$BTDATA" | grep BatteryPercentRight | sed 's/.*BatteryPercentRight = //' | sed 's/;//') 
+    COMBINEDBATT=$(grep BatteryPercentCombined <<< "${BTDATA}" | sed 's/.*BatteryPercentCombined = //' | sed 's/;//') 
+	HEADSETBATT=$(grep HeadsetBattery <<< "${BTDATA}" | sed 's/.*HeadsetBattery = //' | sed 's/;//') 
+	SINGLEBATT=$(grep BatteryPercentSingle <<< "${BTDATA}" | sed 's/.*BatteryPercentSingle = //' | sed 's/;//') 
+    CASEBATT=$(grep BatteryPercentCase <<< "${BTDATA}" | sed 's/.*BatteryPercentCase = //' | sed 's/;//') 
+	LEFTBATT=$(grep BatteryPercentLeft <<< "${BTDATA}" | sed 's/.*BatteryPercentLeft = //' | sed 's/;//') 
+	RIGHTBATT=$(grep BatteryPercentRight <<< "${BTDATA}" | sed 's/.*BatteryPercentRight = //' | sed 's/;//') 
 
 	OUTPUT="🎧"
-	[[ !  -z  $COMBINEDBATT  ]] && OUTPUT="$OUTPUT $COMBINEDBATT%"
-	[[ !  -z  $HEADSETBATT  ]] && OUTPUT="$OUTPUT $HEADSETBATT%"
-	[[ !  -z  $SINGLEBATT  ]] && OUTPUT="$OUTPUT $SINGLEBATT%"
-	[[ !  -z  $LEFTBATT  ]] && OUTPUT="$OUTPUT L: $LEFTBATT%"
-	[[ !  -z  $RIGHTBATT  ]] && OUTPUT="$OUTPUT R: $RIGHTBATT%"
-	[[ !  -z  $CASEBATT  ]] && OUTPUT="$OUTPUT C: $CASEBATT%"
+	[[ !  -z  "${COMBINEDBATT}"  ]] && OUTPUT="${OUTPUT} ${COMBINEDBATT}%"
+	[[ !  -z  "${HEADSETBATT}"  ]] && OUTPUT="${OUTPUT} ${HEADSETBATT}%"
+	[[ !  -z  "${SINGLEBATT}"  ]] && OUTPUT="${OUTPUT} ${SINGLEBATT}%"
+	[[ !  -z  "${LEFTBATT}"  ]] && OUTPUT="${OUTPUT} L: ${LEFTBATT}%"
+	[[ !  -z  "${RIGHTBATT}"  ]] && OUTPUT="${OUTPUT} R: ${RIGHTBATT}%"
+	[[ !  -z  "${CASEBATT}"  ]] && OUTPUT="${OUTPUT} C: ${CASEBATT}%"
 	
-	echo "$OUTPUT"
+	echo "${OUTPUT}"
 else
 	echo "🎧 Not Connected"
 fi
