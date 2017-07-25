@@ -7,7 +7,7 @@
 MACADDR='7c-04-d0-af-88-62'
 
 # Don't edit anything below this line ;)
-OUTPUT='\xf0\x9f\x8e\xa7'
+OUTPUT='🎧'
 VARIABLES=("BatteryPercentCombined" "HeadsetBattery" "BatteryPercentSingle" "BatteryPercentCase" "BatteryPercentLeft" "BatteryPercentRight")
 BTDATA=$(defaults read /Library/Preferences/com.apple.Bluetooth|awk '/\"${MACADDR}\".=\s*\{[^\}]*\}/i {for(i=1; i<=6; i++) {getline; print}}')
 CONNECTED=$(system_profiler SPBluetoothDataType | awk "/$MACADDR/i {for(i=1; i<=6; i++) {getline; print}}" | grep "Connected: Yes" | sed 's/.*Connected: Yes/1/')
