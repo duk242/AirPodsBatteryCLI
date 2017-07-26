@@ -5,15 +5,15 @@
 
 # Put the MAC Address of your W1-enabled headphones (Apple AirPods, Beats Solo3, Powerbeats3, BeatsX) in here.
 MACADDR='7c-04-d0-af-88-62'
-OUTPUT='🎧'
+OUTPUT='🎧'; BLUETOOTH_DEFAULTS=$(defaults read /Library/Preferences/com.apple.Bluetooth); SYSTEM_PROFILER=$(system_profiler SPBluetoothDataType)
 VARIABLES=("BatteryPercentCombined" "HeadsetBattery" "BatteryPercentSingle" "BatteryPercentCase" "BatteryPercentLeft" "BatteryPercentRight")
-BTDATA=$(awk '/\"${MACADDR}\".=\s*\{[^\}]*\}/i {for(i=1; i<=6; i++) {getline; print}}'<<<defaults read /Library/Preferences/com.apple.Bluetooth)
-CONNECTED=$(awk "/$MACADDR/i {for(i=1; i<=6; i++) {getline; print}}"<<<system_profiler SPBluetoothDataType|grep "Connected: Yes"|sed 's/.*Connected: Yes/1/')
+BTDATA=$(awk '/\"${MACADDR}\".=\s*\{[^\}]*\}/i {for(i=1; i<=6; i++) {getline; print}}' <<< "${BLUETOOTH_DEFAULTS}" )
+CONNECTED=$(awk "/${MACADDR}/i {for(i=1; i<=6; i++) {getline; print}}" <<< "${SYSTEM_PROFILER}" |awk '/Connected: Yes/{print 1}')
 
 if [[ "${CONNECTED}" ]]; then
-  for i in "${VARIABLES[@]}"; do
-    declare -x "${i}"="$(grep "${i}"<<<"${BTDATA}"|sed "s/.*${i} = //"|sed 's/;//')"
-    [[ ! -z "${!i}" ]] && OUTPUT="${OUTPUT} $(awk '/BatteryPercent/{print substr($0,15,1)": "}'<<<${i})${!i}%"
+  for I in "${VARIABLES[@]}"; do
+    declare -x "${I}"="$(grep "${I}"<<<"${BTDATA}"|sed "s/.*${I} = //"|sed 's/;//')"
+    [[ ! -z "${!I}" ]] && OUTPUT="${OUTPUT} $(awk '/BatteryPercent/{print substr($0,15,1)": "}'<<<"${I}")${!I}%"
   done
   printf "%s\\n" "${OUTPUT}"
 else
