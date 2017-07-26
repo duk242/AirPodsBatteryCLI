@@ -14,8 +14,8 @@ CONNECTED=$(system_profiler SPBluetoothDataType | awk "/$MACADDR/i {for(i=1; i<=
 
 if [[ "${CONNECTED}" ]]; then
   for i in "${VARIABLES[@]}"; do
-    declare -x "${i}"="$(grep "${i}" <<< "${BTDATA}")|sed 's/.*${i} = //'|sed 's/;//')"
-    [[ ! -z "${$i}" ]] && OUTPUT="${OUTPUT} ${$i}%"
+    declare -x "${i}"="$(grep "${i}" <<< "${BTDATA}"|sed "s/.*${i} = //"|sed 's/;//')"
+    [[ ! -z "${!i}" ]] && OUTPUT="${OUTPUT} ${!i}%"
   done
   printf "%s\\n" "${OUTPUT}"
 else
