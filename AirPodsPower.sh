@@ -1,5 +1,5 @@
 #!/bin/bash
-# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 1
+# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 2.0
 # Contributors: ankushg, spetykowski, danozdotnet
 # Check http://blog.duklabs.com/airpods-power-in-touchbar/ for more info.
 
