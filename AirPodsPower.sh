@@ -1,5 +1,5 @@
 #!/bin/bash
-# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 2.1
+# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 2.2
 # Contributors: ankushg, spetykowski, danozdotnet
 # Check http://blog.duklabs.com/airpods-power-in-touchbar/ for more info.
 
@@ -11,7 +11,7 @@ BATTERY_LEVELS=("BatteryPercentCombined" "HeadsetBattery" "BatteryPercentSingle"
 
 if [[ "${CONNECTED}" ]]; then
   for I in "${BATTERY_LEVELS[@]}"; do
-    declare -x "${I}"="$(grep "${I}" <<< "${BLUETOOTH_DATA}"|sed "s/.*${I} = //"|sed 's/;//')"
+    declare -x "${I}"="$(grep "${I}" <<< "${BLUETOOTH_DATA}"|awk '{gsub (";",""); print $3 }')"
     [[ ! -z "${!I}" ]] && OUTPUT="${OUTPUT} $(awk '/BatteryPercent/{print substr($0,15,1)": "}' <<< "${I}")${!I}%"
   done
   printf "%s\\n" "${OUTPUT}"
