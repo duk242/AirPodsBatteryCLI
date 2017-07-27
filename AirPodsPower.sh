@@ -1,7 +1,7 @@
 #!/bin/bash
-# Duckie's heaps mad W1-enabled Headphone Power Script.  Version 2.3
-# Contributors: ankushg, spetykowski, danozdotnet
-# Check http://blog.duklabs.com/airpods-power-in-touchbar/ for more info.
+# AirPods Battery CLI, Version 2.3
+# Contributors: duk242, ankushg, spetykowski, danozdotnet
+# Released under the MIT License.
 
 OUTPUT='🎧'; BLUETOOTH_DEFAULTS=$(defaults read /Library/Preferences/com.apple.Bluetooth); SYSTEM_PROFILER=$(system_profiler SPBluetoothDataType)
 MAC_ADDR=$(grep -b2 "Minor Type: Headphones"<<<"${SYSTEM_PROFILER}"|awk '/Address/{print $3}')
