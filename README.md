@@ -18,8 +18,6 @@ To match the MAC address of heaphones you want info for:
 
 MAC_ADDR="7c-04-d0-af-88-62"
 
-This has been tested and works on OSX 10.12.6 and above.
-
 ### Guide
 
 There is a bigger usage guide available online at:
