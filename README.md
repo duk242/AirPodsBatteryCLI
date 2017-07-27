@@ -1,12 +1,30 @@
-# AirPodsBatteryCLI
-CLI tool for Grabbing the AirPods Battery Status
+# AirPods Battery CLI 2.3
+## Copyright 2017 Dustin Kerr & Daniel Jones, All Rights Reserved.
+## Released under the MIT License.
 
-This is a little shell script that uses information from defaults read /Library/Preferences/com.apple.Bluetooth to grab Battery Info from a pair of connected AirPods.
 
-You'll have to edit the line at the top to put the MAC Address of your AirPods in.
+### About
+This is a CLI tool for Grabbing the AirPods Battery Status
 
-This works as of OSX 10.12.6.
+Information is collected from defaults read /Library/Preferences/com.apple.Bluetooth to grab Battery Info from a pair of connected AirPods. It will currently only grab the info for the first paired set of W1 supported headphones.
 
-There's a better guide on using it here: http://blog.duklabs.com/airpods-power-in-touchbar/
+### Usage
 
-Ducky - 22/7/17
+If you have multiple sets of Headphones, you can change the line that reads:
+
+MAC_ADDR=$(grep -b2 "Minor Type: Headphones"<<<"${SYSTEM_PROFILER}"|awk '/Address/{print $3}')
+
+To match the MAC address of heaphones you want info for:
+
+MAC_ADDR="7c-04-d0-af-88-62"
+
+This has been tested and works on OSX 10.12.6 and above.
+
+### Guide
+
+There is a bigger usage guide available online at:
+http://blog.duklabs.com/airpods-power-in-touchbar/
+
+### Requirements
+
+This has been tested and works on OSX 10.12.6 and above.
